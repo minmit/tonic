@@ -1,0 +1,53 @@
+#####################################
+## Include Search Paths
+######################################
+
+#####################################
+# test bench files
+#####################################
+$TONIC_HOME/tb/sim/tonic/sim_top.v
+
+#####################################
+# Design Files
+#####################################
+
+$TONIC_HOME/src/tonic.v
+
+## dd_engine
+
+$TONIC_HOME/src/dd_engine/dd_engine.v
+
+$TONIC_HOME/src/dd_engine/dd_core.v
+
+$TONIC_HOME/src/dd_engine/event_processors/dd_incoming/dd_incoming_0.v
+$TONIC_HOME/src/dd_engine/event_processors/dd_incoming/dd_incoming_1.v
+$TONIC_HOME/src/dd_engine/event_processors/dd_timeout/dd_timeout.v
+
+$TONIC_HOME/src/dd_engine/event_processors/dd_next/dd_next.v
+$TONIC_HOME/src/dd_engine/event_processors/dd_dequeue_prop/dd_dequeue_prop.v
+
+## bitmap_ops
+
+$TONIC_HOME/src/bitmap_ops/ff_wnd/ff_wnd.v
+$TONIC_HOME/src/bitmap_ops/ff_wnd/ff_block.v
+$TONIC_HOME/src/bitmap_ops/ff_wnd/ff_set.v
+
+$TONIC_HOME/src/bitmap_ops/cnt_wnd/cnt_wnd.v
+$TONIC_HOME/src/bitmap_ops/cnt_wnd/cnt_block.v
+$TONIC_HOME/src/bitmap_ops/cnt_wnd/cnt_set.v
+
+## Fifos
+
+$TONIC_HOME/src/fifos/fifo_4w/fifo_4w.v
+$TONIC_HOME/src/fifos/fifo_1w/fifo_1w.v
+
+## context store
+
+$TONIC_HOME/src/context_store/4w4r/cntxt_store_4w4r.v
+
+## RAM
+$TONIC_HOME/src/ram/ram_4w4r.v
+$TONIC_HOME/src/ram/ram_2w4r.v
+$TONIC_HOME/src/ram/ram_2w2r.v
+$TONIC_HOME/src/ram/ram_2p_wrapper.v
+

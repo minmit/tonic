@@ -1,0 +1,18 @@
+#####################################
+## Include Search Paths
+######################################
++incdir+$TONIC_HOME/src/user_defined_logic/nreno_1/include
+
+#####################################
+# test bench C files
+#####################################
+$TONIC_HOME/tb/sim/tonic/nreno_1/receiver_resp.c
+
+#####################################
+# Design Files
+#####################################
+
+$TONIC_HOME/src/user_defined_logic/nreno_1/user_defined_incoming.v
+$TONIC_HOME/src/user_defined_logic/nreno_1/user_defined_timeout.v
+
+-f $TONIC_HOME/tb/sim/tonic/cr_flists/cwnd.flist

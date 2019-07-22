@@ -383,7 +383,7 @@ assign tx_cntxt_l = (tmp_tx_enq_fid2 != `FLOW_ID_NONE &
 
 assign tx_enq_fid2 = (tmp_tx_enq_fid2 != `FLOW_ID_NONE &
                      tx_fid_l_from_store == `FLOW_ID_NONE) 
-                     ? `FLOW_ID_NONE : tx_enq_fid2;
+                     ? `FLOW_ID_NONE : tmp_tx_enq_fid2;
 
 
 

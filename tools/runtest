@@ -1,0 +1,48 @@
+#!/usr/bin/env python2.7
+
+from argparse import ArgumentParser
+import sys
+# User Modules
+from libconfig import *
+import testlib as test
+import dbglib as dbg
+import config as cfg
+       
+def main():
+    parser = ArgumentParser()
+    parser._action_groups.pop()
+    required = parser.add_argument_group('Required Arguments')
+    required.add_argument("--type", dest="type", required=True, type=str, choices=["sim", "unit", "system"], help="Test type")
+    required.add_argument("--config", dest="config", required=True, type=str, metavar="<config.yml>", help="YAML configuration file name")
+
+    parser.add_argument("--debug", dest="debug", action='store_true', help="Enable debugging messages")
+    args = parser.parse_args()
+
+    # Read Test Configuration
+    run_cfg = test.readTestConfig(args.config)
+
+    if args.type == "sim":
+        test_class = test.Sim
+        tb_dir = cfg.TB_SIM_DIR
+
+    elif args.type == "unit":
+        print "Not implemented in this version"
+        sys.exit(0)
+ 
+    elif args.type == "system":
+        print "Not implemented in this version"
+        sys.exit(0)
+
+    dbg.DEBUG = args.debug
+
+    # Run tests for every design in configuration file
+    for design_name in run_cfg.keys():
+        dbg.print_info("="*80)
+        dbg.print_info("%s: '%s'" % (args.type, design_name))
+        dbg.print_info("="*80)
+        test_inst = test_class(design_name, tb_dir, run_cfg[design_name])
+        res_code = test_inst.Run()
+        sys.exit(res_code)
+
+if __name__ == "__main__":
+    main()

@@ -14,7 +14,8 @@ module ff_block #(
     output                                          val_out,
     output      [BLOCK_IND_WIDTH-1:0]               ind_out
 );
-localparam  INPUT_DIR_NUM_WIDTH     = clogb2(BLOCK_WIDTH);
+
+/*localparam  INPUT_DIR_NUM_WIDTH     = clogb2(BLOCK_WIDTH);
 localparam  INPUT_DIR_SHIFT         = clogb2(BLOCK_WIDTH)*BLOCK_LEVEL;
 localparam  IND_MATR_WIDTH          = BLOCK_IND_WIDTH * BLOCK_WIDTH;
 localparam  IND_REV_MATR_WIDTH      = BLOCK_IND_WIDTH * BLOCK_WIDTH;
@@ -75,6 +76,66 @@ generate begin
             assign direction_matrix_inv[ii * BLOCK_WIDTH + jj] = direction_matrix[jj * INPUT_DIR_NUM_WIDTH + ii] & single_valid_bus[jj];
         end
         assign selected_direction[ii] = |direction_matrix_inv[(ii+1)*BLOCK_WIDTH-1 -: BLOCK_WIDTH];
+    end
+end
+endgenerate
+*/
+
+localparam  INPUT_DIR_NUM_WIDTH = clogb2(BLOCK_WIDTH);
+localparam  INPUT_DIR_SHIFT     = clogb2(BLOCK_WIDTH)*BLOCK_LEVEL;
+
+wire    [BLOCK_WIDTH-1:0]           single_valid_bus;
+wire    [BLOCK_IND_WIDTH-1:0]       selected_ind;
+wire    [BLOCK_IND_WIDTH-1:0]       ind_matr[BLOCK_WIDTH-1:0];
+wire    [INPUT_DIR_NUM_WIDTH-1:0]   selected_direction;
+wire    [BLOCK_WIDTH-1:0]           ind_in_revert_matrix[BLOCK_IND_WIDTH-1:0];
+wire    [INPUT_DIR_NUM_WIDTH-1:0]   direction_matrix[BLOCK_WIDTH-1:0];
+wire    [BLOCK_WIDTH-1:0]           direction_matrix_inv[INPUT_DIR_NUM_WIDTH-1:0];
+
+genvar ii, jj;
+
+assign val_out = |ind_val_in;
+
+assign ind_out = (selected_direction << INPUT_DIR_SHIFT) + selected_ind;
+
+generate begin
+    for (ii = 0; ii < BLOCK_WIDTH; ii = ii + 1) begin: single_valid_bus_gen
+        if (ii == 0) begin
+            assign single_valid_bus[ii] = ind_val_in[ii];
+        end
+        else begin
+            assign single_valid_bus[ii] = ~(|ind_val_in[ii-1:0]) & ind_val_in[ii];
+        end
+    end
+end
+endgenerate
+
+generate begin
+    for (ii = 0; ii < BLOCK_WIDTH; ii = ii + 1) begin: ind_matr_gen
+        assign ind_matr[ii] = ind_flat_in[(ii+1)*BLOCK_IND_WIDTH-1:ii*BLOCK_IND_WIDTH];
+    end
+
+
+    for (ii = 0; ii < BLOCK_IND_WIDTH; ii = ii + 1) begin: selected_ind_gen
+        for (jj = 0; jj < BLOCK_WIDTH; jj = jj + 1) begin: ind_in_revert_gen
+            assign ind_in_revert_matrix[ii][jj] = ind_matr[jj][ii] & single_valid_bus[jj];
+        end
+        assign selected_ind[ii] = |ind_in_revert_matrix[ii];
+    end
+end
+endgenerate
+
+generate begin
+    for (ii = 0; ii < BLOCK_WIDTH; ii = ii + 1) begin: direction_matrix_gen
+        wire    [31:0]  tmp_index = ii;
+        assign direction_matrix[ii] = tmp_index[0];
+    end
+
+    for (ii = 0; ii < INPUT_DIR_NUM_WIDTH; ii = ii + 1) begin: selected_direction_gen
+        for (jj = 0; jj < BLOCK_WIDTH; jj = jj + 1) begin: direction_matrix_gen
+            assign direction_matrix_inv[ii][jj] = direction_matrix[jj][ii] & single_valid_bus[jj];
+        end
+        assign selected_direction[ii] = |direction_matrix_inv[ii];
     end
 end
 endgenerate

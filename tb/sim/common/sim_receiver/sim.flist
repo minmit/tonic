@@ -1,0 +1,11 @@
+#####################################
+# test bench C files
+#####################################
+$TONIC_HOME/tb/sim/common/sim_receiver/sim_receiver.c
+$TONIC_HOME/tb/sim/common/sim_receiver/ack_prio_queue.c
+$TONIC_HOME/tb/sim/common/sim_receiver/sliding_window.c
+
+#####################################
+# Design Files
+#####################################
+$TONIC_HOME/tb/sim/common/sim_receiver/sim_receiver.v

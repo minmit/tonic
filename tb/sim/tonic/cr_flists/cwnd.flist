@@ -1,0 +1,16 @@
+## Engine and Core
+
+$TONIC_HOME/src/cr_engine/cwnd/cr_engine.v
+$TONIC_HOME/src/cr_engine/cwnd/cr_core.v
+
+## Fifos
+$TONIC_HOME/src/fifos/fifo_2w/fifo_2w.v
+
+## event processors
+
+$TONIC_HOME/src/cr_engine/common/event_processors/cr_enqueue/cr_enqueue.v
+$TONIC_HOME/src/cr_engine/cwnd/event_processors/cr_transmit/cr_transmit.v
+
+## context store
+
+$TONIC_HOME/src/context_store/2w2r/cntxt_store_2w2r.v

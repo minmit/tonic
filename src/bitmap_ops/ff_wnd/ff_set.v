@@ -18,12 +18,11 @@ localparam IND_FLAT_ARR_SIZE    = FLAT_ARR_ITEM_WIDTH * (BLOCK_DEPTH + 1);
 wire [IND_VAL_ARR_SIZE-1:0]             ind_val_level;
 wire [IND_FLAT_ARR_SIZE-1:0]            ind_flat_level;
 
-assign val_out     = ind_val_level[IND_VAL_ARR_SIZE-VECT_WIDTH];
+assign val_out     = ind_val_level[BLOCK_DEPTH * VECT_WIDTH];
 
-assign ind_out     = ind_flat_level[IND_FLAT_ARR_SIZE - FLAT_ARR_ITEM_WIDTH + VECT_IND_WIDTH - 1 -: VECT_IND_WIDTH];
+assign ind_out     = ind_flat_level[BLOCK_DEPTH * FLAT_ARR_ITEM_WIDTH + VECT_IND_WIDTH - 1 -: VECT_IND_WIDTH];
 
 genvar ii, jj;
-
 
 generate begin
     for (ii = 0; ii < BLOCK_DEPTH; ii = ii + 1) begin: level_gen
@@ -37,7 +36,7 @@ generate begin
         end
 
 
-        for (jj = 0; jj < pow(BLOCK_WIDTH, BLOCK_DEPTH-ii-1); jj = jj + 1) begin: block_gen
+        for (jj = 0; jj < num_blks(VECT_WIDTH, ii, BLOCK_WIDTH); jj = jj + 1) begin: block_gen
             ff_block # (
                 .BLOCK_WIDTH        (BLOCK_WIDTH        ),
                 .BLOCK_IND_WIDTH    (VECT_IND_WIDTH     ),
@@ -50,6 +49,8 @@ generate begin
                                         ((ii+1) * FLAT_ARR_ITEM_WIDTH) + jj*VECT_IND_WIDTH])
             );
         end
+        assign ind_val_level[(ii + 1) * VECT_WIDTH + VECT_WIDTH - 1 : (ii + 1) * VECT_WIDTH + num_blks(VECT_WIDTH, ii, BLOCK_WIDTH)] = {(VECT_WIDTH - num_blks(VECT_WIDTH, ii, BLOCK_WIDTH)){1'b0}};
+         assign ind_flat_level[(ii + 1) * FLAT_ARR_ITEM_WIDTH + FLAT_ARR_ITEM_WIDTH - 1 : (ii + 1) * FLAT_ARR_ITEM_WIDTH + (num_blks(VECT_WIDTH, ii, BLOCK_WIDTH)-1)*VECT_IND_WIDTH] = {(VECT_IND_WIDTH * (VECT_WIDTH - num_blks(VECT_WIDTH, ii, BLOCK_WIDTH))){1'b0}};
 
     end
 end
@@ -78,5 +79,13 @@ begin
 end
 endfunction
 
+function integer num_blks;
+input integer w;
+input integer i;
+input integer bw;
+begin
+  num_blks = pow(bw, i + 1) > w ? 1 : w/pow(bw, i + 1);
+end
+endfunction
 
 endmodule

@@ -1,0 +1,22 @@
+# unit_name
+#   model parameters
+#     <name> : <val>
+#   model specifications
+#     param - val
+tonic/reno:
+  params:
+    init_wnd_size       : 10
+    init_rtx_timer_amnt : 2000
+    
+  specs:
+    user_context_w      : 25
+    init_user_context   : 0
+    send_dd_context     : 0
+    
+    cr_type             : 0
+    
+    sim_cycles          : 10
+    active_flow_cnt     : 4
+    rtt                 : 20
+    loss_prob           : 300
+    receiver            : True

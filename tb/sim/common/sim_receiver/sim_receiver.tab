@@ -1,0 +1,4 @@
+$read_inputs call=read_inputs
+$write_outputs call=write_outputs
+$init call=init
+$send_clk call=send_clk

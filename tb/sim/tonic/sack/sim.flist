@@ -1,0 +1,18 @@
+#####################################
+## Include Search Paths
+######################################
++incdir+$TONIC_HOME/src/user_defined_logic/sack/include
+
+#####################################
+# test bench C files
+#####################################
+$TONIC_HOME/tb/sim/tonic/sack/receiver_resp.c
+
+#####################################
+# Design Files
+#####################################
+
+$TONIC_HOME/src/user_defined_logic/sack/user_defined_incoming.v
+$TONIC_HOME/src/user_defined_logic/sack/user_defined_timeout.v
+
+-f $TONIC_HOME/tb/sim/tonic/cr_flists/cwnd.flist
