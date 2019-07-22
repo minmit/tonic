@@ -50,7 +50,7 @@ generate begin
             );
         end
         assign ind_val_level[(ii + 1) * VECT_WIDTH + VECT_WIDTH - 1 : (ii + 1) * VECT_WIDTH + num_blks(VECT_WIDTH, ii, BLOCK_WIDTH)] = {(VECT_WIDTH - num_blks(VECT_WIDTH, ii, BLOCK_WIDTH)){1'b0}};
-         assign ind_flat_level[(ii + 1) * FLAT_ARR_ITEM_WIDTH + FLAT_ARR_ITEM_WIDTH - 1 : (ii + 1) * FLAT_ARR_ITEM_WIDTH + (num_blks(VECT_WIDTH, ii, BLOCK_WIDTH)-1)*VECT_IND_WIDTH] = {(VECT_IND_WIDTH * (VECT_WIDTH - num_blks(VECT_WIDTH, ii, BLOCK_WIDTH))){1'b0}};
+        assign ind_flat_level[(ii + 1) * FLAT_ARR_ITEM_WIDTH + FLAT_ARR_ITEM_WIDTH - 1 : (ii + 1) * FLAT_ARR_ITEM_WIDTH + (num_blks(VECT_WIDTH, ii, BLOCK_WIDTH))*VECT_IND_WIDTH] = {(VECT_IND_WIDTH * (VECT_WIDTH - num_blks(VECT_WIDTH, ii, BLOCK_WIDTH))){1'b0}};
 
     end
 end

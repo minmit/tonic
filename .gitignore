@@ -2,3 +2,4 @@
 build/
 tools/*.pyc
 tools/lib/*.pyc
+tb/sim/tonic/sim_top_debug.v

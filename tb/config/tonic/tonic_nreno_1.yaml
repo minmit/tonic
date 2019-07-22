@@ -18,5 +18,5 @@ tonic/nreno_1:
     sim_cycles          : 100
     active_flow_cnt     : 4
     rtt                 : 20
-    loss_prob           : 0
+    loss_prob           : 300
     receiver            : True
