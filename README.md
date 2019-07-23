@@ -1,6 +1,6 @@
 # Tonic
 
-## Structure
+## Code Structure
 
 - **src/** - source files
   - **tonic.v** (Tonic's top-level)
