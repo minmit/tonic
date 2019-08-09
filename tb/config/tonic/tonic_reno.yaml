@@ -15,7 +15,7 @@ tonic/reno:
     
     cr_type             : 0
     
-    sim_cycles          : 10
+    sim_cycles          : 100
     active_flow_cnt     : 4
     rtt                 : 20
     loss_prob           : 300

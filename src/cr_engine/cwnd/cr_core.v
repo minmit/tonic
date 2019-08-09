@@ -343,7 +343,7 @@ end
 
 // Enqueue
 always @(*) begin
-    if (enq_pkt_queue_size_out == 1) begin
+    if (enq_pkt_queue_size_out == 1 & ~didnt_enq) begin
         enq_mrged_ready_to_tx = 1'b1;
     end
     else if (enq_fid_p == tx_fid_p) begin
@@ -366,7 +366,7 @@ end
 
 // tx_enq_fids
 
-assign tx_enq_fid1 = (enq_pkt_queue_size_out == 1) ? enq_fid_p : `FLOW_ID_NONE;
+assign tx_enq_fid1 = (enq_pkt_queue_size_out == 1 & ~didnt_enq) ? enq_fid_p : `FLOW_ID_NONE;
 
 wire  [`FLOW_ID_W-1:0] tmp_tx_enq_fid2;
 
