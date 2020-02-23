@@ -1,5 +1,9 @@
 # Tonic
 
+Tonic is a programmable hardware architecture for the transport logic, i.e., reliable data delivery and congestion control. All the design files in this repository are available for use under the 3-clause BSD License.
+
+
+
 ## Code Structure
 
 - **src/** - source files
