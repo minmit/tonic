@@ -18,6 +18,7 @@ Tonic is a programmable hardware architecture for the transport logic, i.e., rel
   - **sim/** (simulation files for Tonic, including a mock receiver in C)
 - **tools/** (scripts for running simulations and tests)
 - **build/** - temporary build files. The output of the build and simulation goes in this directory.
+- **csim/** - Tonic's cycle-accurate simulator in C++.
 
 **Note:** Some directories are empty as they are being ported into the new infrastructre.
 
